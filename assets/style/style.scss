@@ -1,0 +1,588 @@
+$vanilla: #f7f0e3;
+$chocolate: #4d350e;
+$choco-dark: #291c07;
+$cream: rgb(101, 72, 16);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgb(0 235 255 / 24%),
+    rgb(0, 57, 255)
+  );
+  width: 100%;
+  overflow: hidden;
+}
+fieldset {
+  position: absolute;
+  top: 50px;
+  left: 35vw;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #2e15ba;
+  width: fit-content;
+}
+#sayYourName {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  border-radius: 100%;
+}
+// url(https://grainy-gradients.vercel.app/noise.svg);
+@mixin vanillaDrop($width, $bottom, $left, $after: true) {
+  &::before {
+    content: "";
+    left: $left;
+    position: absolute;
+    border-radius: 50%;
+    width: $width;
+    height: 15px;
+    bottom: $bottom;
+    background-color: $vanilla;
+    box-shadow: 0px 1px 1px 0px darken($chocolate, 20%);
+  }
+  @if $after {
+    &::after {
+      left: calc(-15px + 14%);
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      width: calc($width - 25%);
+      height: 12px;
+      bottom: calc($width - 36%);
+      background-color: $vanilla;
+      box-shadow: 0px 2px 4px 0px darken($vanilla, 5%);
+    }
+  }
+}
+@mixin foodColoring($color) {
+  background: $color;
+  box-shadow: 0 2px 0px lighten($color, 8%), 0 4px 0px darken($color, 8.2%),
+    0 6px 0px darken($color, 8.4%), 0 8px 0px darken($color, 6%),
+    0 10px 0px darken($color, 8.8%), 0 12px 0px darken($color, 6%),
+    0 14px 0px darken($color, 9.2%), 0 16px 0px darken($color, 9%),
+    0 18px 0px darken($color, 9.6%), 0 20px 0px darken($color, 9%),
+    0 22px 0px darken($color, 10%), 0 24px 0px darken($color, 12%),
+    0 26px 0px darken($color, 12%), 0 28px 0px darken($color, 10.6%),
+    0 30px 0px darken($color, 10.8%);
+}
+
+#numOfCandles,
+button {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px auto;
+}
+.cake > * {
+  position: absolute;
+}
+.cake > *:not(.plate, .drip) {
+  width: 100%;
+}
+.cake {
+  position: relative;
+  width: 450px;
+  height: 200px;
+  margin: 53vh auto 0;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.plate {
+  width: calc(100% + 20px);
+  height: 125px;
+  bottom: -23px;
+  left: -10px;
+  background-color: #ebebeb;
+  border-radius: 50%;
+  box-shadow: 0 6px 0 #b3b3b3, 0 -1px 0 #e0e0e0,
+    0 12px 35px -8px rgba(0, 0, 0, 0.5);
+}
+
+.layer {
+  display: block;
+  width: 250px;
+  height: 120px;
+  border-radius: 50%;
+  filter: contrast(105%) brightness(132%);
+  @include foodColoring($chocolate);
+}
+
+.layer-top {
+  top: 0px;
+}
+.layer-middle {
+  top: 33px;
+  //   @include foodColoring($cream);
+}
+.layer-bottom {
+  top: 66px;
+}
+
+.icing {
+  top: 0px;
+  left: 0px;
+  background-color: $vanilla;
+  z-index: 10;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient($vanilla 46%, darken($vanilla, 10%));
+  box-shadow: inset 0 0 15px lighten($vanilla, 70%);
+}
+
+.drip {
+  border-radius: 25px;
+  background: linear-gradient(darken($vanilla, 10%) 22%, $vanilla);
+}
+
+.drip1 {
+  left: -1px;
+  top: 60px;
+  width: 13px;
+  height: 80px;
+  transform: skewY(22deg);
+}
+
+.drip2 {
+  left: 40px;
+  width: 21px;
+  top: 49px;
+  height: 135px;
+  transform: skewY(8deg);
+  @include vanillaDrop(45px, -10px, -15px, true);
+}
+
+.drip3 {
+  top: 54px;
+  left: 90px;
+  width: 70px;
+  height: 110px;
+  border-radius: 40px;
+}
+.drip4 {
+  top: 42px;
+  left: 381px;
+  width: 70px;
+  height: 95px;
+  border-radius: 40px;
+  transform: skewY(-15deg);
+  z-index: 9;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 88px;
+    background: linear-gradient(darken($vanilla, 10%) 10%, $vanilla);
+    border-radius: 20px;
+    top: 26px;
+    left: 57px;
+  }
+}
+// CANDLE
+
+.candleContainer {
+  position: relative;
+  z-index: 13;
+  opacity: 0;
+  margin: 10px;
+  // animation: fadeIn 0.5s ease-out forwards;
+}
+.candle {
+  position: absolute;
+  background-color: #2e15ba;
+  width: 13px;
+  height: 50px;
+  border-radius: 8px / 4px;
+  z-index: 10;
+  box-shadow: inset -4px 5px 7px #14027c;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    border-radius: 50%;
+    background-color: lighten(#2e15ba, 20%);
+    box-shadow: inset 0px 2px 3px #d6cff7;
+    opacity: 0.5;
+  }
+}
+
+.candleShadow {
+  position: absolute;
+  left: -8px;
+  top: 45px;
+  width: 33px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ba6d15;
+  filter: blur(6px);
+  z-index: 10;
+}
+.flame {
+  position: absolute;
+  background-color: orange;
+  width: 9px;
+  height: 20px;
+  border-radius: 10px 10px 10px 10px/25px 25px 10px 10px;
+  top: -22px;
+  left: 3px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5),
+    0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5),
+    inset 3px 2px 2px #fbd051, inset -3px 2px 3px #fb8c00;
+  transform-origin: 50% 90%;
+  animation: flicker 0.9s ease-in-out alternate infinite;
+  transition: all 0.3s ease;
+}
+.pulse {
+  animation: pulse 0.8s ease-in-out infinite;
+}
+#blow {
+  display: none;
+  text-align: center;
+}
+.banner {
+  width: 100%;
+  height: 130px;
+  text-align: center;
+  padding: 30px;
+  background-color: orange;
+  position: fixed;
+  z-index: 20;
+  top: 30%;
+}
+.confetti {
+  width: 10px;
+  height: 20px;
+  position: absolute;
+  opacity: 0.7;
+}
+/*** ANIMAZIONI ***/
+@keyframes pulse {
+  0% {
+    background-color: inherit;
+  }
+  100% {
+    background-color: lightblue;
+  }
+}
+@keyframes flicker {
+  0% {
+    transform: skewX(5deg) scaleY(1.1);
+    box-shadow: 0 0 10px rgba(orange, 0.2), 0 0 20px rgba(orange, 0.2),
+      0 0 60px rgba(orange, 0.2), 0 0 80px rgba(orange, 0.2),
+      inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
+  }
+  25% {
+    transform: skewX(-5deg) scaleY(1);
+    box-shadow: 0 0 10px rgba(orange, 0.5), 0 0 20px rgba(orange, 0.5),
+      0 0 60px rgba(orange, 0.5), 0 0 80px rgba(orange, 0.5),
+      inset 3px 2px 2px rgba(#fbd051, 0.8), inset -3px 2px 3px #fb8c00;
+  }
+  50% {
+    transform: skewX(10deg) scaleY(1.1);
+    box-shadow: 0 0 10px rgba(orange, 0.3), 0 0 20px rgba(orange, 0.3),
+      0 0 60px rgba(orange, 0.3), 0 0 80px rgba(orange, 0.3),
+      inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
+  }
+  75% {
+    transform: skewX(-10deg) scaleY(1);
+    box-shadow: 0 0 10px rgba(orange, 0.4), 0 0 20px rgba(orange, 0.4),
+      0 0 60px rgba(orange, 0.4), 0 0 80px rgba(orange, 0.4),
+      inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
+    height: 23px;
+  }
+  100% {
+    transform: skewX(5deg);
+    box-shadow: 0 0 10px rgba(orange, 0.5), 0 0 20px rgba(orange, 0.5),
+      0 0 60px rgba(orange, 0.5), 0 0 80px rgba(orange, 0.5),
+      inset 3px 2px 2px rgba(#fbd051, 0.8), inset -3px 2px 3px #fb8c00;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/** SET CANDLES FADEIN DELAY**/
+// $delay: 0.5s; // ritardo fadeIn per ciascun elemento
+
+// @function calculateDelay($index) {
+//   @return $delay * $index;
+// }
+
+// @for $i from 1 through ??? {
+//   .candleContainer:nth-child(#{$i}) {
+//     animation-delay: calculateDelay($i);
+//   }
+// }
+
+/*********************************************** C O N F E T T I   -  S T Y L E ***************************************************************/
+// .button {
+//   --background: #1e2235;
+//   --color: #f6f8ff;
+//   --shadow: #{rgba(#00093d, 0.24)};
+//   --cannon-dark: #a6accd;
+//   --cannon-light: #f6f8ff;
+//   --cannon-shadow: #{rgba(#0d0f18, 0.9)};
+//   --confetti-1: #892ab8;
+//   --confetti-2: #ea4c89;
+//   --confetti-3: #ffff04;
+//   --confetti-4: #4af2fd;
+//   --z-before: -6;
+//   display: block;
+//   outline: none;
+//   cursor: pointer;
+//   position: relative;
+//   border: 0;
+//   background: none;
+//   padding: 9px 22px 9px 16px;
+//   line-height: 26px;
+//   font-family: inherit;
+//   font-weight: 600;
+//   font-size: 14px;
+//   color: var(--color);
+//   -webkit-appearance: none;
+//   -webkit-tap-highlight-color: transparent;
+//   transition: transform var(--transform-duration, 0.4s);
+//   will-change: transform;
+//   transform-style: preserve-3d;
+//   transform: perspective(440px) rotateX(calc(var(--rx, 0) * 1deg))
+//     rotateY(calc(var(--ry, 0) * 1deg)) translateZ(0);
+//   &:hover {
+//     --transform-duration: 0.16s;
+//   }
+//   &.success {
+//     --confetti-scale: 0;
+//     --stroke-dashoffset: 15;
+//   }
+//   &:before {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     border-radius: 12px;
+//     transform: translateZ(calc(var(--z-before) * 1px));
+//     background: var(--background);
+//     box-shadow: 0 4px 8px var(--shadow);
+//   }
+//   .icon,
+//   span {
+//     display: inline-block;
+//     vertical-align: top;
+//     position: relative;
+//     z-index: 1;
+//   }
+//   .icon {
+//     --z: 2px;
+//     width: 24px;
+//     height: 14px;
+//     margin: 8px 16px 0 0;
+//     transform: translate(
+//         calc(var(--icon-x, 0) * 1px),
+//         calc(var(--icon-y, 0) * 1px)
+//       )
+//       translateZ(2px);
+//     .confetti {
+//       position: absolute;
+//       left: 17px;
+//       bottom: 9px;
+//       svg {
+//         width: 18px;
+//         height: 16px;
+//         display: block;
+//         stroke-width: 1px;
+//         fill: none;
+//         stroke-linejoin: round;
+//         stroke-linecap: round;
+//         * {
+//           transition: stroke-dashoffset 0.2s;
+//           stroke-dasharray: 15 20;
+//           stroke-dashoffset: var(--stroke-dashoffset, 0);
+//           stroke: var(--stroke-all, var(--stroke, var(--confetti-2)));
+//           &:nth-child(2) {
+//             --stroke: var(--confetti-3);
+//           }
+//           &:nth-child(3) {
+//             --stroke: var(--confetti-1);
+//           }
+//         }
+//       }
+//       .emitter {
+//         position: absolute;
+//         left: 4px;
+//         bottom: 4px;
+//         pointer-events: none;
+//         div {
+//           width: 4px;
+//           height: 4px;
+//           margin: -2px 0 0 -2px;
+//           border-radius: 1px;
+//           position: absolute;
+//           left: 0;
+//           top: 0;
+//           transform-style: preserve-3d;
+//           background: var(--confetti-all, var(--b, none));
+//         }
+//       }
+//       i {
+//         width: 4px;
+//         height: 4px;
+//         display: block;
+//         transform: scale(var(--confetti-scale, 0.5));
+//         position: absolute;
+//         transition: transform 0.25s;
+//         left: var(--left, -1px);
+//         top: var(--top, 3px);
+//         border-radius: var(--border-radius, 1px);
+//         background: var(--confetti-background, var(--confetti-3));
+//         &:nth-child(2) {
+//           --left: 9px;
+//           --top: -1px;
+//           --border-radius: 2px;
+//           --confetti-background: var(--confetti-4);
+//         }
+//         &:nth-child(3) {
+//           --left: 5px;
+//           --top: 3px;
+//           --confetti-background: var(--confetti-1);
+//         }
+//         &:nth-child(4) {
+//           --left: 10px;
+//           --top: 14px;
+//           --confetti-background: var(--confetti-2);
+//         }
+//         &:nth-child(5) {
+//           --left: 9px;
+//           --top: 7px;
+//           --confetti-background: var(--confetti-4);
+//         }
+//         &:nth-child(6) {
+//           --left: 6px;
+//           --top: 8px;
+//           --border-radius: 2px;
+//           --confetti-background: var(--confetti-2);
+//         }
+//       }
+//     }
+//     .cannon {
+//       position: relative;
+//       width: 24px;
+//       height: 14px;
+//       transform: translate(0, 3px) rotate(-45deg);
+//       filter: drop-shadow(-2px 2px 2px var(--cannon-shadow));
+//       &:before,
+//       &:after {
+//         content: "";
+//         display: block;
+//         height: 14px;
+//       }
+//       &:before {
+//         background: linear-gradient(
+//           var(--cannon-dark),
+//           var(--cannon-light) 50%,
+//           var(--cannon-dark)
+//         );
+//         width: 100%;
+//         -webkit-clip-path: polygon(25px -1px, 0 52%, 25px 15px);
+//         clip-path: polygon(25px -1px, 0 52%, 25px 15px);
+//       }
+//       &:after {
+//         width: 6px;
+//         position: absolute;
+//         right: -3px;
+//         top: 0;
+//         border-radius: 50%;
+//         box-shadow: inset 0 0 0 0.5px var(--cannon-light);
+//         background: linear-gradient(
+//           90deg,
+//           var(--cannon-dark),
+//           var(--cannon-light)
+//         );
+//       }
+//     }
+//   }
+//   &.white {
+//     --background: #fff;
+//     --color: #1e2235;
+//     --border: #e1e6f9;
+//     --shadow: none;
+//     --cannon-dark: #103fc5;
+//     --cannon-light: #275efe;
+//     --cannon-shadow: #{rgba(#00093d, 0.2)};
+//     &:before {
+//       box-shadow: inset 0 0 0 1px var(--border);
+//     }
+//   }
+//   &.grey {
+//     --background: #404660;
+//     --cannon-shadow: #{rgba(#0d0f18, 0.2)};
+//     --cannon-dark: #d1d6ee;
+//     --cannon-light: #ffffff;
+//   }
+// }
+
+// html {
+//   -webkit-font-smoothing: antialiased;
+// }
+
+// // * {
+// //   box-sizing: inherit;
+// //   &:before,
+// //   &:after {
+// //     box-sizing: inherit;
+// //   }
+// // }
+
+// // Center & dribbble
+// body {
+//   min-height: 100vh;
+//   display: flex;
+//   font-family: "Inter", Arial;
+//   justify-content: center;
+//   align-items: center;
+//   background: #f6f8ff;
+//   .button {
+//     margin: 0 12px;
+//   }
+//   .dribbble {
+//     position: fixed;
+//     display: block;
+//     right: 20px;
+//     bottom: 20px;
+//     img {
+//       display: block;
+//       height: 28px;
+//     }
+//   }
+//   .twitter {
+//     position: fixed;
+//     display: block;
+//     right: 64px;
+//     bottom: 14px;
+//     svg {
+//       width: 32px;
+//       height: 32px;
+//       fill: #1da1f2;
+//     }
+//   }
+// }

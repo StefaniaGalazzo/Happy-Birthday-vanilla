@@ -1,0 +1,300 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 50% 50%, rgba(0, 235, 255, 0.24), rgb(0, 57, 255));
+  width: 100%;
+  overflow: hidden;
+}
+
+fieldset {
+  position: absolute;
+  top: 50px;
+  left: 35vw;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #2e15ba;
+  width: fit-content;
+}
+
+#sayYourName {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  border-radius: 100%;
+}
+
+#numOfCandles,
+button {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px auto;
+}
+
+.cake > * {
+  position: absolute;
+}
+
+.cake > *:not(.plate, .drip) {
+  width: 100%;
+}
+
+.cake {
+  position: relative;
+  width: 450px;
+  height: 200px;
+  margin: 53vh auto 0;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.plate {
+  width: calc(100% + 20px);
+  height: 125px;
+  bottom: -23px;
+  left: -10px;
+  background-color: #ebebeb;
+  border-radius: 50%;
+  box-shadow: 0 6px 0 #b3b3b3, 0 -1px 0 #e0e0e0, 0 12px 35px -8px rgba(0, 0, 0, 0.5);
+}
+
+.layer {
+  display: block;
+  width: 250px;
+  height: 120px;
+  border-radius: 50%;
+  filter: contrast(105%) brightness(132%);
+  background: #4d350e;
+  box-shadow: 0 2px 0px #704d14, 0 4px 0px #2a1d08, 0 6px 0px #291c07, 0 8px 0px #332309, 0 10px 0px #271b07, 0 12px 0px #332309, 0 14px 0px #251a07, 0 16px 0px #261a07, 0 18px 0px #241806, 0 20px 0px #261a07, 0 22px 0px #221706, 0 24px 0px #191105, 0 26px 0px #191105, 0 28px 0px #1f1606, 0 30px 0px #1e1506;
+}
+
+.layer-top {
+  top: 0px;
+}
+
+.layer-middle {
+  top: 33px;
+}
+
+.layer-bottom {
+  top: 66px;
+}
+
+.icing {
+  top: 0px;
+  left: 0px;
+  background-color: #f7f0e3;
+  z-index: 10;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(#f7f0e3 46%, #ecdbbb);
+  box-shadow: inset 0 0 15px white;
+}
+
+.drip {
+  border-radius: 25px;
+  background: linear-gradient(#ecdbbb 22%, #f7f0e3);
+}
+
+.drip1 {
+  left: -1px;
+  top: 60px;
+  width: 13px;
+  height: 80px;
+  transform: skewY(22deg);
+}
+
+.drip2 {
+  left: 40px;
+  width: 21px;
+  top: 49px;
+  height: 135px;
+  transform: skewY(8deg);
+}
+.drip2::before {
+  content: "";
+  left: -15px;
+  position: absolute;
+  border-radius: 50%;
+  width: 45px;
+  height: 15px;
+  bottom: -10px;
+  background-color: #f7f0e3;
+  box-shadow: 0px 1px 1px 0px black;
+}
+.drip2::after {
+  left: calc(-15px + 14%);
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: calc(45px - 25%);
+  height: 12px;
+  bottom: calc(45px - 36%);
+  background-color: #f7f0e3;
+  box-shadow: 0px 2px 4px 0px #f1e5cf;
+}
+
+.drip3 {
+  top: 54px;
+  left: 90px;
+  width: 70px;
+  height: 110px;
+  border-radius: 40px;
+}
+
+.drip4 {
+  top: 42px;
+  left: 381px;
+  width: 70px;
+  height: 95px;
+  border-radius: 40px;
+  transform: skewY(-15deg);
+  z-index: 9;
+}
+.drip4::before {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 88px;
+  background: linear-gradient(#ecdbbb 10%, #f7f0e3);
+  border-radius: 20px;
+  top: 26px;
+  left: 57px;
+}
+
+.candleContainer {
+  position: relative;
+  z-index: 13;
+  opacity: 0;
+  margin: 10px;
+}
+
+.candle {
+  position: absolute;
+  background-color: #2e15ba;
+  width: 13px;
+  height: 50px;
+  border-radius: 8px/4px;
+  z-index: 10;
+  box-shadow: inset -4px 5px 7px #14027c;
+}
+.candle:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #634aeb;
+  box-shadow: inset 0px 2px 3px #d6cff7;
+  opacity: 0.5;
+}
+
+.candleShadow {
+  position: absolute;
+  left: -8px;
+  top: 45px;
+  width: 33px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ba6d15;
+  filter: blur(6px);
+  z-index: 10;
+}
+
+.flame {
+  position: absolute;
+  background-color: orange;
+  width: 9px;
+  height: 20px;
+  border-radius: 10px 10px 10px 10px/25px 25px 10px 10px;
+  top: -22px;
+  left: 3px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5), inset 3px 2px 2px #fbd051, inset -3px 2px 3px #fb8c00;
+  transform-origin: 50% 90%;
+  animation: flicker 0.9s ease-in-out alternate infinite;
+  transition: all 0.3s ease;
+}
+
+.pulse {
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+#blow {
+  display: none;
+  text-align: center;
+}
+
+.banner {
+  width: 100%;
+  height: 130px;
+  text-align: center;
+  padding: 30px;
+  background-color: orange;
+  position: fixed;
+  z-index: 20;
+  top: 30%;
+}
+
+.confetti {
+  width: 10px;
+  height: 20px;
+  position: absolute;
+  opacity: 0.7;
+}
+
+/*** ANIMAZIONI ***/
+@keyframes pulse {
+  0% {
+    background-color: inherit;
+  }
+  100% {
+    background-color: lightblue;
+  }
+}
+@keyframes flicker {
+  0% {
+    transform: skewX(5deg) scaleY(1.1);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.2), 0 0 60px rgba(255, 165, 0, 0.2), 0 0 80px rgba(255, 165, 0, 0.2), inset 3px 2px 2px rgba(251, 208, 81, 0.5), inset -3px 2px 3px #fb8c00;
+  }
+  25% {
+    transform: skewX(-5deg) scaleY(1);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5), inset 3px 2px 2px rgba(251, 208, 81, 0.8), inset -3px 2px 3px #fb8c00;
+  }
+  50% {
+    transform: skewX(10deg) scaleY(1.1);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.3), 0 0 20px rgba(255, 165, 0, 0.3), 0 0 60px rgba(255, 165, 0, 0.3), 0 0 80px rgba(255, 165, 0, 0.3), inset 3px 2px 2px rgba(251, 208, 81, 0.5), inset -3px 2px 3px #fb8c00;
+  }
+  75% {
+    transform: skewX(-10deg) scaleY(1);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.4), 0 0 60px rgba(255, 165, 0, 0.4), 0 0 80px rgba(255, 165, 0, 0.4), inset 3px 2px 2px rgba(251, 208, 81, 0.5), inset -3px 2px 3px #fb8c00;
+    height: 23px;
+  }
+  100% {
+    transform: skewX(5deg);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5), inset 3px 2px 2px rgba(251, 208, 81, 0.8), inset -3px 2px 3px #fb8c00;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/** SET CANDLES FADEIN DELAY**/
+/*********************************************** C O N F E T T I   -  S T Y L E ***************************************************************//*# sourceMappingURL=style.css.map */

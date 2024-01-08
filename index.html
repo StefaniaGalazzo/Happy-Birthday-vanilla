@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday!</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="assets/style/style.css" />
+  </head>
+  <body>
+    <fieldset id="fields">
+      <legend>It's your special day</legend>
+      <label for="sayYourName" name="sayYourName">
+        Say your name or something cute!
+        <button type="button" id="sayYourName">🎙️</button>
+      </label>
+      <h3 id="currentWord"></h3>
+      <label for="numOfCandles" name="numOfCandles">Add your candles :) </label>
+      <input
+        id="numOfCandles"
+        type="number"
+        min="1"
+        max="150"
+        placeholder="How old are you today?"
+      />
+      <button type="button" id="HBbtn">Happy Birthday!</button>
+      <h4 id="blow">Blow On the candles!</h4>
+    </fieldset>
+    <div class="cake">
+      <div class="plate"></div>
+      <div class="layer layer-bottom"></div>
+      <div class="layer layer-middle"></div>
+      <div class="layer layer-top"></div>
+      <div class="icing"></div>
+      <div class="drip drip1"></div>
+      <div class="drip drip2"></div>
+      <div class="drip drip3"></div>
+      <div class="drip drip4"></div>
+      <!-- <div class="candleContainer">
+        <div class="candleShadow"></div>
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+      </div> -->
+    </div>
+    <!-- <div class="banner"><h4>Happy Birthday Tizio Caio!</h4></div> -->
+    <script type="module" src="assets/js/gain-processor.js"></script>
+    <script type="module" src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/confetti.js"></script>
+  </body>
+</html>
