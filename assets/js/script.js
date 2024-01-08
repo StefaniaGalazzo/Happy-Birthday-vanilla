@@ -124,9 +124,9 @@ function handleBlowDetection() {
   });
   console.log(flames, "flames");
   //resto del codice
-  if (flames.length === 0) {
-    window.location.href = "confetti.html";
-  }
+  // if (flames.length === 0) {
+  //   window.location.href = "confetti.html";
+  // }
 }
 
 function generateCandles() {
