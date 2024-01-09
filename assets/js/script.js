@@ -97,14 +97,14 @@ function readAnalyzerData(recognition, analyser, dataArray) {
   const averageVolume = Math.round(
     dataArray.reduce((acc, value) => acc + value, 0) / dataArray.length
   );
-  // console.log("Volume medio:", averageVolume);
-  const threshold = 60;
-  const backgroundNoise = 15;
+  console.log("Volume medio:", averageVolume);
+  const threshold = 50;
+  const backgroundNoise = 35;
   if (averageVolume < threshold && averageVolume > backgroundNoise) {
-    // console.log("Rilevato soffio.");
+    console.log("Rilevato soffio.");
     handleBlowDetection();
   } else {
-    // console.log("Rilevato parlato o altro.");
+    console.log("Rilevato parlato o altro.");
   }
   // console.log(averageVolume, "Volume medio");
 }
@@ -117,12 +117,12 @@ function handleBlowDetection() {
   flames.forEach((flame) => {
     initialOpacitiCandle -= 0.5;
     flame.style.opacity = `${initialOpacitiCandle}%`;
-    console.log(initialOpacitiCandle, "INITIAL VAL");
+    // console.log(initialOpacitiCandle, "INITIAL VAL");
     if (flame.style.opacity <= 0) {
       flame.remove();
     }
   });
-  console.log(flames, "flames");
+  // console.log(flames, "flames");
   //resto del codice
   // if (flames.length === 0) {
   //   window.location.href = "confetti.html";
