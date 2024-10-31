@@ -1,0 +1,15 @@
+{
+  "name": "cake",
+  "version": "1.0.0",
+  "scripts": {
+    "sass:watch": "sass ./assets/style/style.scss ./assets/style/style.css --source-map --watch",
+    "sass:compile": "sass ./assets/style/style.scss ./assets/style/style.css --source-map"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.x.x"
+  },
+  "description": ""
+}

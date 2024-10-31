@@ -11,35 +11,57 @@ html,
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
+// h1,h2,h3,h4,h5,p,span,label,button
 body {
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgb(0 235 255 / 24%),
-    rgb(0, 57, 255)
-  );
+  background: radial-gradient(circle at 50% 50%, rgb(0 235 255 / 24%), rgb(0, 57, 255));
   width: 100%;
   overflow: hidden;
+  color: $choco-dark;
 }
-fieldset {
-  position: absolute;
-  top: 50px;
-  left: 35vw;
+
+label {
+  display: block;
+}
+#fields {
+  position: fixed;
+  top: 2vw;
+  left: 2vw;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid #2e15ba;
+  background-color: rgb(251, 250, 247);
   width: fit-content;
+  box-shadow: 0px 0px 22px -5px #00000061, inset 0px 0px 20px 15px #0000000a;
 }
-#sayYourName {
+.labelName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#currentWord {
+  position: fixed;
+  top: 5%;
+  left: 35%;
+  text-align: center;
+  width: 30%;
+  border-radius: 4px;
+  background-color: $vanilla;
+  padding: 16px;
+}
+
+button#sayYourName {
   width: 35px;
   height: 35px;
   font-size: 16px;
   border-radius: 100%;
+  background-color: $choco-dark;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 8px #00000061, inset 0px 0px 20px 15px #0000000a;
 }
 // url(https://grainy-gradients.vercel.app/noise.svg);
 @mixin vanillaDrop($width, $bottom, $left, $after: true) {
   &::before {
-    content: "";
+    content: '';
     left: $left;
     position: absolute;
     border-radius: 50%;
@@ -52,7 +74,7 @@ fieldset {
   @if $after {
     &::after {
       left: calc(-15px + 14%);
-      content: "";
+      content: '';
       position: absolute;
       border-radius: 50%;
       width: calc($width - 25%);
@@ -65,14 +87,11 @@ fieldset {
 }
 @mixin foodColoring($color) {
   background: $color;
-  box-shadow: 0 2px 0px lighten($color, 8%), 0 4px 0px darken($color, 8.2%),
-    0 6px 0px darken($color, 8.4%), 0 8px 0px darken($color, 6%),
-    0 10px 0px darken($color, 8.8%), 0 12px 0px darken($color, 6%),
-    0 14px 0px darken($color, 9.2%), 0 16px 0px darken($color, 9%),
-    0 18px 0px darken($color, 9.6%), 0 20px 0px darken($color, 9%),
-    0 22px 0px darken($color, 10%), 0 24px 0px darken($color, 12%),
-    0 26px 0px darken($color, 12%), 0 28px 0px darken($color, 10.6%),
-    0 30px 0px darken($color, 10.8%);
+  box-shadow: 0 2px 0px lighten($color, 8%), 0 4px 0px darken($color, 8.2%), 0 6px 0px darken($color, 8.4%),
+    0 8px 0px darken($color, 6%), 0 10px 0px darken($color, 8.8%), 0 12px 0px darken($color, 6%),
+    0 14px 0px darken($color, 9.2%), 0 16px 0px darken($color, 9%), 0 18px 0px darken($color, 9.6%),
+    0 20px 0px darken($color, 9%), 0 22px 0px darken($color, 10%), 0 24px 0px darken($color, 12%),
+    0 26px 0px darken($color, 12%), 0 28px 0px darken($color, 10.6%), 0 30px 0px darken($color, 10.8%);
 }
 
 #numOfCandles,
@@ -104,8 +123,7 @@ button {
   left: -10px;
   background-color: #ebebeb;
   border-radius: 50%;
-  box-shadow: 0 6px 0 #b3b3b3, 0 -1px 0 #e0e0e0,
-    0 12px 35px -8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 0 #b3b3b3, 0 -1px 0 #e0e0e0, 0 12px 35px -8px rgba(0, 0, 0, 0.5);
 }
 
 .layer {
@@ -177,7 +195,7 @@ button {
   transform: skewY(-15deg);
   z-index: 9;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     width: 13px;
     height: 88px;
@@ -205,7 +223,7 @@ button {
   z-index: 10;
   box-shadow: inset -4px 5px 7px #14027c;
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -238,9 +256,8 @@ button {
   top: -22px;
   left: 3px;
   z-index: 10;
-  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5),
-    0 0 60px rgba(255, 165, 0, 0.5), 0 0 80px rgba(255, 165, 0, 0.5),
-    inset 3px 2px 2px #fbd051, inset -3px 2px 3px #fb8c00;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.5), 0 0 20px rgba(255, 165, 0, 0.5), 0 0 60px rgba(255, 165, 0, 0.5),
+    0 0 80px rgba(255, 165, 0, 0.5), inset 3px 2px 2px #fbd051, inset -3px 2px 3px #fb8c00;
   transform-origin: 50% 90%;
   animation: flicker 0.9s ease-in-out alternate infinite;
   transition: all 0.3s ease;
@@ -271,43 +288,38 @@ button {
 /*** ANIMAZIONI ***/
 @keyframes pulse {
   0% {
-    background-color: inherit;
+    background-color: currentColors;
   }
   100% {
-    background-color: lightblue;
+    background-color: $chocolate;
   }
 }
 @keyframes flicker {
   0% {
     transform: skewX(5deg) scaleY(1.1);
-    box-shadow: 0 0 10px rgba(orange, 0.2), 0 0 20px rgba(orange, 0.2),
-      0 0 60px rgba(orange, 0.2), 0 0 80px rgba(orange, 0.2),
-      inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
+    box-shadow: 0 0 10px rgba(orange, 0.2), 0 0 20px rgba(orange, 0.2), 0 0 60px rgba(orange, 0.2),
+      0 0 80px rgba(orange, 0.2), inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
   }
   25% {
     transform: skewX(-5deg) scaleY(1);
-    box-shadow: 0 0 10px rgba(orange, 0.5), 0 0 20px rgba(orange, 0.5),
-      0 0 60px rgba(orange, 0.5), 0 0 80px rgba(orange, 0.5),
-      inset 3px 2px 2px rgba(#fbd051, 0.8), inset -3px 2px 3px #fb8c00;
+    box-shadow: 0 0 10px rgba(orange, 0.5), 0 0 20px rgba(orange, 0.5), 0 0 60px rgba(orange, 0.5),
+      0 0 80px rgba(orange, 0.5), inset 3px 2px 2px rgba(#fbd051, 0.8), inset -3px 2px 3px #fb8c00;
   }
   50% {
     transform: skewX(10deg) scaleY(1.1);
-    box-shadow: 0 0 10px rgba(orange, 0.3), 0 0 20px rgba(orange, 0.3),
-      0 0 60px rgba(orange, 0.3), 0 0 80px rgba(orange, 0.3),
-      inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
+    box-shadow: 0 0 10px rgba(orange, 0.3), 0 0 20px rgba(orange, 0.3), 0 0 60px rgba(orange, 0.3),
+      0 0 80px rgba(orange, 0.3), inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
   }
   75% {
     transform: skewX(-10deg) scaleY(1);
-    box-shadow: 0 0 10px rgba(orange, 0.4), 0 0 20px rgba(orange, 0.4),
-      0 0 60px rgba(orange, 0.4), 0 0 80px rgba(orange, 0.4),
-      inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
+    box-shadow: 0 0 10px rgba(orange, 0.4), 0 0 20px rgba(orange, 0.4), 0 0 60px rgba(orange, 0.4),
+      0 0 80px rgba(orange, 0.4), inset 3px 2px 2px rgba(#fbd051, 0.5), inset -3px 2px 3px #fb8c00;
     height: 23px;
   }
   100% {
     transform: skewX(5deg);
-    box-shadow: 0 0 10px rgba(orange, 0.5), 0 0 20px rgba(orange, 0.5),
-      0 0 60px rgba(orange, 0.5), 0 0 80px rgba(orange, 0.5),
-      inset 3px 2px 2px rgba(#fbd051, 0.8), inset -3px 2px 3px #fb8c00;
+    box-shadow: 0 0 10px rgba(orange, 0.5), 0 0 20px rgba(orange, 0.5), 0 0 60px rgba(orange, 0.5),
+      0 0 80px rgba(orange, 0.5), inset 3px 2px 2px rgba(#fbd051, 0.8), inset -3px 2px 3px #fb8c00;
   }
 }
 @keyframes fadeIn {
@@ -321,6 +333,19 @@ button {
   }
 }
 
+.recording-banner {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
 /** SET CANDLES FADEIN DELAY**/
 // $delay: 0.5s; // ritardo fadeIn per ciascun elemento
 
@@ -333,3 +358,80 @@ button {
 //     animation-delay: calculateDelay($i);
 //   }
 // }
+#confettiPage {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100vh;
+  background-color: #222;
+}
+
+/* Messaggio di compleanno */
+#birthday-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  letter-spacing: 10px;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Stile per i coriandoli */
+.confetti {
+  position: absolute;
+
+  background-color: #f00;
+  border-radius: 50%;
+  opacity: 1;
+  animation: confetti-fall 1s linear forwards;
+}
+
+/* Animazione dei coriandoli */
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(calc(100vw * (var(--x) - 0.5)), calc(100vh * (var(--y) - 0.5))) scale(0.5);
+    opacity: 0;
+  }
+}
+
+// hulk , spiderman
+
+#spider {
+  animation: spiderIn 1s ease-in forwards;
+  position: fixed;
+  right: 5%;
+}
+
+#hulk {
+  animation: hulkIn 1s ease-in forwards;
+  position: fixed;
+  left: 5%;
+}
+@keyframes spiderIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(-100px);
+  }
+}
+@keyframes hulkIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
