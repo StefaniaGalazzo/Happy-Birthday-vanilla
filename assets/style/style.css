@@ -13,23 +13,50 @@ body {
   background: radial-gradient(circle at 50% 50%, rgba(0, 235, 255, 0.24), rgb(0, 57, 255));
   width: 100%;
   overflow: hidden;
+  color: #291c07;
 }
 
-fieldset {
-  position: absolute;
-  top: 50px;
-  left: 35vw;
+label {
+  display: block;
+}
+
+#fields {
+  position: fixed;
+  top: 2vw;
+  left: 2vw;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid #2e15ba;
+  background-color: rgb(251, 250, 247);
   width: fit-content;
+  box-shadow: 0px 0px 22px -5px rgba(0, 0, 0, 0.3803921569), inset 0px 0px 20px 15px rgba(0, 0, 0, 0.0392156863);
 }
 
-#sayYourName {
+.labelName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#currentWord {
+  position: fixed;
+  top: 5%;
+  left: 35%;
+  text-align: center;
+  width: 30%;
+  border-radius: 4px;
+  background-color: #f7f0e3;
+  padding: 16px;
+}
+
+button#sayYourName {
   width: 35px;
   height: 35px;
   font-size: 16px;
   border-radius: 100%;
+  background-color: #291c07;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3803921569), inset 0px 0px 20px 15px rgba(0, 0, 0, 0.0392156863);
 }
 
 #numOfCandles,
@@ -257,10 +284,10 @@ button {
 /*** ANIMAZIONI ***/
 @keyframes pulse {
   0% {
-    background-color: inherit;
+    background-color: currentColors;
   }
   100% {
-    background-color: lightblue;
+    background-color: #4d350e;
   }
 }
 @keyframes flicker {
@@ -296,5 +323,94 @@ button {
     transform: translateY(0);
   }
 }
+.recording-banner {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
 /** SET CANDLES FADEIN DELAY**/
-/*********************************************** C O N F E T T I   -  S T Y L E ***************************************************************//*# sourceMappingURL=style.css.map */
+#confettiPage {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100vh;
+  background-color: #222;
+}
+
+/* Messaggio di compleanno */
+#birthday-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  letter-spacing: 10px;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Stile per i coriandoli */
+.confetti {
+  position: absolute;
+  background-color: #f00;
+  border-radius: 50%;
+  opacity: 1;
+  animation: confetti-fall 1s linear forwards;
+}
+
+/* Animazione dei coriandoli */
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(calc(100vw * (var(--x) - 0.5)), calc(100vh * (var(--y) - 0.5))) scale(0.5);
+    opacity: 0;
+  }
+}
+#spider {
+  animation: spiderIn 1s ease-in forwards;
+  position: fixed;
+  right: 5%;
+}
+
+#hulk {
+  animation: hulkIn 1s ease-in forwards;
+  position: fixed;
+  left: 5%;
+}
+
+@keyframes spiderIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(-100px);
+  }
+}
+@keyframes hulkIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

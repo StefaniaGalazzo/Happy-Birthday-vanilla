@@ -1,110 +1,107 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const HBbtn = document.getElementById("HBbtn");
-  HBbtn.onclick = handleButtonClick;
-  startRecName();
-});
+window.addEventListener('DOMContentLoaded', () => {
+  const HBbtn = document.getElementById('HBbtn')
+  HBbtn.onclick = handleButtonClick
+  startRecName()
+})
 
-let readDataInterval;
-let initialOpacitiCandle = 100;
+let readDataInterval
+let initialOpacitiCandle = 100
 
 async function handleButtonClick() {
-  const audioContextData = await initAudioContext();
-  generateCandles();
-  startRecording(audioContextData);
+  const audioContextData = await initAudioContext()
+  generateCandles()
+  startRecording(audioContextData)
 }
 
 // Inizializzazione e ritorno dell'AudioContext come promessa
 async function initAudioContext() {
-  const context = new AudioContext();
-  let gainWorkletNode;
+  const context = new AudioContext()
+  let gainWorkletNode
 
-  await context.audioWorklet.addModule("assets/js/gain-processor.js");
-  gainWorkletNode = new AudioWorkletNode(context, "gain-processor");
+  await context.audioWorklet.addModule('assets/js/gain-processor.js')
+  gainWorkletNode = new AudioWorkletNode(context, 'gain-processor')
 
-  return { context, gainWorkletNode };
+  return { context, gainWorkletNode }
 }
 
 // Avvio della registrazione audio
 function startRecording({ context, gainWorkletNode }) {
   if (!gainWorkletNode) {
-    console.error("GainNode non inizializzato correttamente.");
-    return;
+    console.error('GainNode non inizializzato correttamente.')
+    return
   }
 
   navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then((stream) => {
       // const audioContext = gainNode.context;
-      const microphone = context.createMediaStreamSource(stream);
+      const microphone = context.createMediaStreamSource(stream)
 
-      const analyser = context.createAnalyser();
-      analyser.fftSize = 2048;
+      const analyser = context.createAnalyser()
+      analyser.fftSize = 2048
 
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
+      const bufferLength = analyser.frequencyBinCount
+      const dataArray = new Uint8Array(bufferLength)
 
       // Connessione del microfono all'analizzatore
-      microphone.connect(analyser);
-      analyser.connect(gainWorkletNode);
+      microphone.connect(analyser)
+      analyser.connect(gainWorkletNode)
 
-      const recognition = new (window.webkitSpeechRecognition ||
-        window.SpeechRecognition)();
-      recognition.lang = "it-IT";
+      const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)()
+      recognition.lang = 'it-IT'
 
       recognition.onstart = () => {
-        console.log("Registrazione avviata. Parla o soffia nel microfono.");
+        console.log('Registrazione avviata. Parla o soffia nel microfono.')
 
         // Legge continuamente i dati dell'analizzatore
         readDataInterval = setInterval(() => {
-          readAnalyzerData(recognition, analyser, dataArray);
-        }, 100);
+          readAnalyzerData(recognition, analyser, dataArray)
+        }, 100)
         // // Imposta l'evento onaudioprocess dell'AudioWorkletNode per iniziare la lettura
         // gainWorkletNode.onaudioprocess = () => {
         //   readAnalyzerData(recognition, analyser, dataArray);
         // };
-      };
+      }
 
       recognition.onerror = (event) => {
-        console.error("Errore durante la registrazione:", event.error);
-      };
+        console.error('Errore durante la registrazione:', event.error)
+      }
 
       // setTimeout(() => {
       recognition.onend = () => {
-        console.log("Registrazione terminata.");
-      };
+        console.log('Registrazione terminata.')
+      }
       // }, 5000);
       // Inizia la registrazione audio
-      recognition.start();
+      recognition.start()
     })
     .catch((error) => {
-      console.error("Errore durante l'accesso al microfono:", error);
-    });
+      console.error("Errore durante l'accesso al microfono:", error)
+    })
 }
 
 // Lettura e analisi dei dati dell'analizzatore
 function readAnalyzerData(recognition, analyser, dataArray) {
   recognition.onresult = (event) => {
-    const result = event.results[0][0].transcript.trim();
-    console.log("Il tuo risultato:", result);
-    console.log("Dati dell'analizzatore:", dataArray);
-  };
+    const result = event.results[0][0].transcript.trim()
+    console.log('Il tuo risultato:', result)
+    console.log("Dati dell'analizzatore:", dataArray)
+  }
 
-  analyser.getByteFrequencyData(dataArray);
+  analyser.getByteFrequencyData(dataArray)
   // console.log(
   //   "Dati dell'analizzatore prima del calcolo del volume medio:",
   //   dataArray
   // );
-  const averageVolume = Math.round(
-    dataArray.reduce((acc, value) => acc + value, 0) / dataArray.length
-  );
-  console.log("Volume medio:", averageVolume);
-  const threshold = 50;
-  const backgroundNoise = 35;
+  const averageVolume = Math.round(dataArray.reduce((acc, value) => acc + value, 0) / dataArray.length)
+  console.log('Volume medio:', averageVolume)
+  const threshold = 40
+  const backgroundNoise = 28
   if (averageVolume < threshold && averageVolume > backgroundNoise) {
-    console.log("Rilevato soffio.");
-    handleBlowDetection();
+    console.log('Rilevato soffio.')
+    handleBlowDetection()
   } else {
-    console.log("Rilevato parlato o altro.");
+    console.log('Rilevato parlato o altro.')
   }
   // console.log(averageVolume, "Volume medio");
 }
@@ -112,70 +109,68 @@ function readAnalyzerData(recognition, analyser, dataArray) {
 // Azioni da eseguire quando viene rilevato il soffio
 function handleBlowDetection() {
   // console.log("Hai soffiato!");
-  const flames = document.querySelectorAll(".flame");
+  const flames = document.querySelectorAll('.flame')
   // console.log(`sulla torta ci sono ${flames.length} candele`);
   flames.forEach((flame) => {
-    initialOpacitiCandle -= 0.5;
-    flame.style.opacity = `${initialOpacitiCandle}%`;
+    initialOpacitiCandle -= 0.5
+    flame.style.opacity = `${initialOpacitiCandle}%`
     // console.log(initialOpacitiCandle, "INITIAL VAL");
     if (flame.style.opacity <= 0) {
-      flame.remove();
+      flame.remove()
     }
-  });
+  })
   // console.log(flames, "flames");
   //resto del codice
-  // if (flames.length === 0) {
-  //   window.location.href = "confetti.html";
-  // }
+  if (flames.length === 0) {
+    window.location.href = 'confetti.html'
+  }
 }
 
 function generateCandles() {
-  const cake = document.querySelector(".cake");
-  const INPUTCandles = document.getElementById("numOfCandles");
-  let numberOfCandles = INPUTCandles.value;
-  cleanCake(cake);
+  const cake = document.querySelector('.cake')
+  const INPUTCandles = document.getElementById('numOfCandles')
+  let numberOfCandles = INPUTCandles.value
+  cleanCake(cake)
 
   for (let i = 0; i < numberOfCandles; i++) {
-    let candleContainer = document.createElement("div");
-    candleContainer.className = "candleContainer fadeIn";
+    let candleContainer = document.createElement('div')
+    candleContainer.className = 'candleContainer fadeIn'
     candleContainer.innerHTML = `
         <div class="candleShadow"></div>
         <div class="candle">
         <div class="flame"></div>
         </div>
-        `;
-    cake.appendChild(candleContainer);
-    settingAnimationDelay(candleContainer, i);
-    randomizePosition(candleContainer);
+        `
+    cake.appendChild(candleContainer)
+    settingAnimationDelay(candleContainer, i)
+    randomizePosition(candleContainer)
   }
-  INPUTCandles.value = "";
-  printMessage(numberOfCandles);
+  INPUTCandles.value = ''
+  printMessage(numberOfCandles)
 }
 
 function cleanCake(cake) {
-  const existingCandles = cake.querySelectorAll(".candleContainer");
+  const existingCandles = cake.querySelectorAll('.candleContainer')
   existingCandles.forEach((candle) => {
-    candle.remove();
-  });
+    candle.remove()
+  })
 }
 
 function randomizePosition(container) {
-  const icing = document.querySelector(".icing");
-  let candleHeigth = document.querySelector(".candle").offsetHeight;
-  container.style.left = `${
-    Math.random() * (icing.offsetWidth - candleHeigth)
-  }px`;
+  const icing = document.querySelector('.icing')
+  let candleHeigth = document.querySelector('.candle').offsetHeight
+  container.style.left = `${Math.random() * (icing.offsetWidth - candleHeigth)}px`
   container.style.top =
     icing.offsetHeight - candleHeigth < icing.offsetHeight - 20
       ? `${Math.random() * (icing.offsetHeight - (candleHeigth + 30))}px`
-      : `${Math.random() * (icing.offsetHeight - (candleHeigth + 60))}px`;
+      : `${Math.random() * (icing.offsetHeight - (candleHeigth + 60))}px`
 }
 
 function settingAnimationDelay(element, indx) {
   // Imposta il nome dell'animazione in base all'indice
-  const animationName = `fadeIn${indx}`;
+  const animationName = `fadeIn${indx}`
   // Aggiungi la regola dell'animazione al foglio di stile
-  const styleSheet = document.styleSheets[0];
+  const styleSheet = document.styleSheets[0]
   styleSheet.insertRule(
     `
       @keyframes ${animationName} {
@@ -190,71 +185,110 @@ function settingAnimationDelay(element, indx) {
       }
        `,
     styleSheet.cssRules.length
-  );
-  element.style.animation = `${animationName} 0.2s ease-in-out ${
-    indx * 0.1
-  }s forwards`;
+  )
+  element.style.animation = `${animationName} 0.2s ease-in-out ${indx * 0.1}s forwards`
 }
 function printMessage(value) {
-  const blow = document.getElementById("blow");
-  if (value !== 0 || value !== " ") {
-    blow.style.display = "block";
+  const blow = document.getElementById('blow')
+  if (value !== 0 || value !== ' ') {
+    blow.style.display = 'block'
   } else {
-    blow.style.display = "none";
+    blow.style.display = 'none'
   }
 }
 
 // rec and print name or message
 function startRecName() {
-  if (!("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) {
-    recResult.innerText =
-      "Spiacenti, il tuo browser non supporta l'API di riconoscimento vocale.";
-    console.log(
-      "Spiacenti, il tuo browser non supporta l'API di riconoscimento vocale."
-    );
-    return;
+  if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+    showBanner("Spiacenti, il tuo browser non supporta l'API di riconoscimento vocale.")
+    console.log("Spiacenti, il tuo browser non supporta l'API di riconoscimento vocale.")
+    return
   }
-  const recResult = document.getElementById("currentWord");
+  const recResult = document.getElementById('currentWord')
 
-  const recognition = new (window.SpeechRecognition ||
-    window.webkitSpeechRecognition)();
-  recognition.continuous = true;
-  recognition.lang = "it-IT";
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+  recognition.continuous = true
+  recognition.lang = 'it-IT'
 
-  let currentWord = "";
+  let currentWord = ''
+
+  let isRecognitionActive = false //traccio lo stato del riconoscimento
+  const btnREC = document.getElementById('sayYourName')
+
+  btnREC.addEventListener('click', function () {
+    if (!isRecognitionActive) {
+      currentWord = ''
+      recResult.textContent = currentWord
+      recognition.start()
+      isRecognitionActive = true
+      btnREC.classList.add('pulse')
+      showBanner('Registrazione avviata')
+      setTimeout(() => {
+        if (currentWord === '') recognition.stop()
+        btnREC.classList.remove('pulse')
+        showBanner('Registrazione terminata per inattività')
+      }, 5000)
+    } else {
+      btnREC.classList.remove('pulse')
+      // showBanner('Registrazione terminata')
+      recognition.stop()
+      isRecognitionActive = false
+    }
+  })
 
   recognition.onresult = function (event) {
-    currentWord = event.results[event.results.length - 1][0].transcript;
-    recResult.textContent = currentWord;
-  };
+    currentWord = event.results[event.results.length - 1][0].transcript.trim()
+    recResult.textContent = currentWord
+    const fontDimension = calcolaDimensioneFont(currentWord)
+    recResult.style.fontSize = `${fontDimension}px`
+  }
 
   recognition.onerror = function (event) {
-    recResult.innerText = "Error :(";
-    console.error("Error:", event.error);
-  };
-
-  let isRecognitionActive = false; //traccio lo stato del riconoscimento
-  const btnREC = document.getElementById("sayYourName");
-
-  btnREC.addEventListener("click", function () {
-    if (!isRecognitionActive) {
-      currentWord = "";
-      recResult.textContent = currentWord;
-      recognition.start();
-      isRecognitionActive = true;
-      btnREC.classList.add("pulse");
-    } else {
-      btnREC.classList.remove("pulse");
-      recognition.stop();
-      isRecognitionActive = false;
-    }
-  });
-
+    console.error('Errore:', event.error)
+    console.log('ev.errr', event.error)
+    showBanner(`Errore di registrazione: ${event.error}`)
+  }
   recognition.onend = function () {
-    isRecognitionActive = false;
-  };
+    isRecognitionActive = false
+  }
 }
 
+// mostra banner di avviso
+function showBanner(message) {
+  const banner = document.createElement('div')
+  banner.classList.add('recording-banner')
+  banner.innerText = message
+  document.body.appendChild(banner)
+
+  // Rimuove banner
+  setTimeout(() => banner.remove(), 2000)
+}
+
+function calcolaDimensioneFont(testo, lunghezzaMax = 20, dimensioneIniziale = 75, dimensioneMinima = 20) {
+  // Ottieni la lunghezza del testo fornito
+  const lunghezzaTesto = testo.length
+
+  // Se la lunghezza del testo è inferiore o uguale alla lunghezza massima, restituisci la dimensione iniziale del font
+  if (lunghezzaTesto <= lunghezzaMax) {
+    return dimensioneIniziale
+  } else {
+    // Calcola la lunghezza in eccesso rispetto alla lunghezza massima
+    const extraLength = lunghezzaTesto - lunghezzaMax
+
+    // Calcola la proporzione basata sulla lunghezza massima per una riduzione più controllata
+    const proporzione = extraLength / lunghezzaMax
+
+    // Riduci la dimensione del font in modo dolce, moltiplicando la proporzione per 0.5
+    const dimensioneFont = dimensioneIniziale - dimensioneIniziale * proporzione * 0.4
+    console.log('Dimensione Font :', dimensioneFont)
+    console.log('Testo :', testo)
+    // Assicurati che la dimensione del font non scenda sotto la dimensione minima
+    return Math.max(dimensioneFont, dimensioneMinima)
+  }
+}
+
+//
+//
 // DIDATTICA DEL CODICE
 // #1. analyzer.fftSize
 /*

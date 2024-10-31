@@ -8,24 +8,19 @@
     <link rel="stylesheet" href="assets/style/style.css" />
   </head>
   <body>
-    <fieldset id="fields">
-      <legend>It's your special day</legend>
-      <label for="sayYourName" name="sayYourName">
-        Say your name or something cute!
+    <div id="fields">
+      <h1>È il tuo giorno speciale!</h1>
+      <label for="sayYourName" name="sayYourName" class="labelName">
+        <p>Nome del festeggiato o dedica!</p>
         <button type="button" id="sayYourName">🎙️</button>
       </label>
-      <h3 id="currentWord"></h3>
-      <label for="numOfCandles" name="numOfCandles">Add your candles :) </label>
-      <input
-        id="numOfCandles"
-        type="number"
-        min="1"
-        max="150"
-        placeholder="How old are you today?"
-      />
+      <label for="numOfCandles" name="numOfCandles">Aggiungi le candele 🕯️🕯️🕯️ </label>
+      <input id="numOfCandles" type="number" min="1" max="150" placeholder="How old are you today?" />
       <button type="button" id="HBbtn">Happy Birthday!</button>
       <h4 id="blow">Blow On the candles!</h4>
-    </fieldset>
+    </div>
+    <h3 id="currentWord"></h3>
+
     <div class="cake">
       <div class="plate"></div>
       <div class="layer layer-bottom"></div>
@@ -46,6 +41,5 @@
     <!-- <div class="banner"><h4>Happy Birthday Tizio Caio!</h4></div> -->
     <script type="module" src="assets/js/gain-processor.js"></script>
     <script type="module" src="assets/js/script.js"></script>
-    <script type="module" src="assets/js/confetti.js"></script>
   </body>
 </html>
